@@ -7,7 +7,7 @@ class AppColors {
 
   //backgrounds
   static const Color background = Color.fromARGB(255, 239, 252, 138);
-  static const Color backgroundComponent = Color(0xFFF7F9B9);
+  static const Color backgroundComponent = Color.fromARGB(255, 136, 139, 59);
   static const Color backgroundComponentSelected = Color(0xFFFFFFFF);
   static const Color textPrimary = Color(0xFFD6D58E);
 }
