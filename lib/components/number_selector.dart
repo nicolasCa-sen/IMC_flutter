@@ -3,16 +3,23 @@ import 'package:imc_calculator/core/app_colors.dart';
 
 class NumberSelector extends StatefulWidget {
   final String title;
+  final int value;
+  final Function() onIncrement;
+  final Function() onDecrement;
 
-  const NumberSelector({super.key, required this.title});
+  const NumberSelector({
+    super.key,
+    required this.title,
+    required this.value,
+    required this.onIncrement,
+    required this.onDecrement,
+  });
 
   @override
   State<NumberSelector> createState() => _NumberSelectorState();
 }
 
 class _NumberSelectorState extends State<NumberSelector> {
-  int value = 0;
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -26,18 +33,13 @@ class _NumberSelectorState extends State<NumberSelector> {
         child: Column(
           children: [
             Text(widget.title, style: TextStyle(fontSize: 20)),
-            Text("$value"),
+            Text(widget.value.toString()),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Spacer(),
                 FloatingActionButton(
                   onPressed: () {
-                    setState(() {
-                      value--;
-                      if (value < 0) {
-                        value = 0;
-                      }
-                    });
+                    widget.onDecrement();
                   },
                   shape: CircleBorder(),
                   backgroundColor: AppColors.primary,
@@ -46,15 +48,12 @@ class _NumberSelectorState extends State<NumberSelector> {
                 Spacer(),
                 FloatingActionButton(
                   onPressed: () {
-                    setState(() {
-                      value++;
-                    });
+                    widget.onIncrement();
                   },
                   shape: CircleBorder(),
                   backgroundColor: AppColors.primary,
                   child: Text("+", style: TextStyle(color: Colors.white)),
                 ),
-                Spacer(),
               ],
             ),
           ],
