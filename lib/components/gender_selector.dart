@@ -3,15 +3,21 @@ import 'package:imc_calculator/core/app_colors.dart';
 import 'package:imc_calculator/core/text_styles.dart';
 
 class GenderSelector extends StatefulWidget {
-  const GenderSelector({super.key});
+  final bool value;
+  final Function() onChangedMale;
+  final Function() onChangedFemale;
+  const GenderSelector({
+    super.key,
+    required this.value,
+    required this.onChangedMale,
+    required this.onChangedFemale,
+  });
 
   @override
   State<GenderSelector> createState() => _GenderSelectorState();
 }
 
 class _GenderSelectorState extends State<GenderSelector> {
-  String? selectedGender;
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -19,11 +25,7 @@ class _GenderSelectorState extends State<GenderSelector> {
         //Hombre
         Expanded(
           child: GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedGender = "Hombre";
-              });
-            },
+            onTap: widget.onChangedMale,
             child: Padding(
               padding: const EdgeInsets.only(
                 top: 16.0,
@@ -34,7 +36,7 @@ class _GenderSelectorState extends State<GenderSelector> {
               child: Container(
                 padding: EdgeInsets.all(0),
                 decoration: BoxDecoration(
-                  color: selectedGender == "Hombre"
+                  color: widget.value == true
                       ? AppColors.backgroundComponentSelected
                       : AppColors.backgroundComponent,
                   borderRadius: BorderRadius.circular(10),
@@ -56,11 +58,7 @@ class _GenderSelectorState extends State<GenderSelector> {
         //Mujer
         Expanded(
           child: GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedGender = "Mujer";
-              });
-            },
+            onTap: widget.onChangedFemale,
             child: Padding(
               padding: const EdgeInsets.only(
                 top: 16,
@@ -70,7 +68,7 @@ class _GenderSelectorState extends State<GenderSelector> {
               ),
               child: Container(
                 decoration: BoxDecoration(
-                  color: selectedGender == "Mujer"
+                  color: widget.value == false
                       ? AppColors.backgroundComponentSelected
                       : AppColors.backgroundComponent,
                   borderRadius: BorderRadius.circular(10),
